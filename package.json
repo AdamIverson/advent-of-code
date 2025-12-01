@@ -1,0 +1,30 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/AdamIverson/advent-of-code#readme",
+  "bugs": {
+    "url": "https://github.com/AdamIverson/advent-of-code/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamIverson/advent-of-code.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild \"2025/Day 1/index.ts\" --bundle --outfile=dist/index.js --format=iife --global-name=AdventOfCode --loader:.txt=text",
+    "dev": "esbuild \"2025/Day 1/index.ts\" --bundle --outfile=dist/index.js --format=iife --global-name=AdventOfCode --loader:.txt=text --watch",
+    "start": "npm run build && npx http-server -p 8080 -o",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "http-server": "^14.1.1"
+  }
+}
