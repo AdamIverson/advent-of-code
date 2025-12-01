@@ -19,25 +19,36 @@ var AdventOfCode = (() => {
   var require_index = __commonJS({
     "2025/Day 1/index.ts"() {
       init_input();
-      var start = 50;
+      var dial = [...Array(100).keys()];
+      var combination = input_default.split("\n");
       var zeroes = 0;
-      var array = input_default.split("\n");
-      for (const item of array) {
-        if (item.includes("R")) {
-          start += Number(item.slice(1));
-          if (start === 0) {
-            zeroes++;
+      function getRolloverItem(arr, index2) {
+        const len = arr.length;
+        const rolloverIndex = (index2 % len + len) % len;
+        return arr[rolloverIndex];
+      }
+      var index = 50;
+      var absoluteValue = (combination2) => {
+        for (const item of combination2) {
+          if (item.includes("R")) {
+            const absValue = Math.abs(Number(item.slice(1)));
+            index += absValue;
+            index = getRolloverItem(dial, index);
+          } else if (item.includes("L")) {
+            const absValue = -Math.abs(Number(item.slice(1)));
+            index += absValue;
+            index = getRolloverItem(dial, index);
           }
-        } else if (item.includes("L")) {
-          start -= Number(item.slice(1));
-          if (start === 0) {
+          if (index === 0) {
             zeroes++;
           }
         }
-      }
+        return index;
+      };
+      absoluteValue(combination);
       document.body.innerHTML = `
   <h1>Advent of Code</h1>
-  <p>Progression: ${zeroes}</p>
+  <p>friggin zeroes: ${zeroes}</p>
 `;
     }
   });
