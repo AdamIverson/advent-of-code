@@ -23,20 +23,28 @@ var AdventOfCode = (() => {
       var combination = input_default.split("\n");
       var zeroes = 0;
       function getRolloverItem(arr, index2) {
+        console.log("getRolloverItem", index2);
         const len = arr.length;
         const rolloverIndex = (index2 % len + len) % len;
         return arr[rolloverIndex];
       }
       var index = 50;
+      var passes = 0;
       var absoluteValue = (combination2) => {
         for (const item of combination2) {
           if (item.includes("R")) {
-            const absValue = Math.abs(Number(item.slice(1)));
-            index += absValue;
+            const difference = Number(item.slice(1));
+            if (index + difference > 99) {
+              passes += Math.floor((index + difference) / 100);
+            }
+            index += difference;
             index = getRolloverItem(dial, index);
           } else if (item.includes("L")) {
-            const absValue = -Math.abs(Number(item.slice(1)));
-            index += absValue;
+            const difference = Number(item.slice(1));
+            if (index - difference < 0) {
+              passes += Math.abs(Math.floor((index - difference) / 100));
+            }
+            index -= difference;
             index = getRolloverItem(dial, index);
           }
           if (index === 0) {
@@ -46,9 +54,18 @@ var AdventOfCode = (() => {
         return index;
       };
       absoluteValue(combination);
+      console.log("zeroes", zeroes);
+      console.log("passes", passes);
+      var totes = passes + zeroes;
       document.body.innerHTML = `
   <h1>Advent of Code</h1>
-  <p>friggin zeroes: ${zeroes}</p>
+  <p>friggin zeroes (b): ${totes}</p>
+
+  <p>8255 is too high</p>
+  <p>8203 is wrong</p>
+  <p>7106 is wrong</p>
+  <p>5953 is too low</p>
+  <p>3597 is too low</p>
 `;
     }
   });
