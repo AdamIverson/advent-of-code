@@ -15,8 +15,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild \"2025/Day 3/index.ts\" --bundle --outfile=dist/index.js --format=iife --global-name=AdventOfCode --loader:.txt=text",
-    "dev": "esbuild \"2025/Day 3/index.ts\" --bundle --outfile=dist/index.js --format=iife --global-name=AdventOfCode --loader:.txt=text --watch",
+    "build": "esbuild \"2025/Day 4/index.ts\" --bundle --outfile=dist/index.js --format=iife --global-name=AdventOfCode --loader:.txt=text",
+    "dev": "esbuild \"2025/Day 4/index.ts\" --bundle --outfile=dist/index.js --format=iife --global-name=AdventOfCode --loader:.txt=text --watch",
     "start": "npm run build && npx http-server -p 8080 -o",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
