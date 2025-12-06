@@ -1,12 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2022",
     "module": "ESNext",
-    "lib": ["ES2020", "DOM"],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
     "moduleResolution": "bundler",
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "types": []
   },
-  "include": ["**/*.ts", "types.d.ts"]
+  "include": [
+    "**/*.ts",
+    "types.d.ts"
+  ]
 }
-
