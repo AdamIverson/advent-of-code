@@ -1,0 +1,16 @@
+pseudocode for day 7
+
+process row one to determine starting index (70)
+  index needs to be accessible by following row
+
+const splits: number = 0;
+
+processRow(prevRow: number[], )
+  if no carats: pipes = prevRow
+
+  if carats[i] && prevRow.includes(carats[i]):
+    splits += 1
+    carats.push(index)
+    pipes.push(i+1 && i-1)
+
+  prevRow = pipes
