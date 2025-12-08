@@ -13,7 +13,7 @@ const processRow = (row: string) => {
         splits += 1;
         pipes.add(i + 1)
         pipes.add(i - 1)
-        pipes.delete(i)
+        // pipes.delete(i)
       }
     }
   }
@@ -27,5 +27,7 @@ const result = () => {
   return splits;
 }
 
-console.log("pipes", pipes);
+console.log("result", result());
+
+"1690 is too low"
 "70 is incorrect"
