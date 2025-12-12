@@ -1,0 +1,38 @@
+2839295940 is too lowest
+
+find the biggest rectangle, asshat
+
+496 rows of x,y coordinates
+
+compare each individual coordinate to the other 495 coordinates
+for ( let i - 0; i < rawData.length -1; i++){
+  console.log(rawData[i])
+}
+
+let xDiff = 1
+let yDiff = 1
+
+xDiff = if (Math.abs(rawData[i][0] - rawData[i + j][0]) > 1) {
+  xDiff = Math.abs(rawData[i][0] - rawData[i + j][0])
+  return { xDiff, i, j}
+}
+
+yDiff =  if (Math.abs(rawData[i][1] - rawData[i + j][1]) > 1) {
+  yDiff = (Math.abs(rawData[i][1] - rawData[i + j][1]))
+  return = {yDiff, i, j}
+}
+
+const area = (xDiff x yDiff)
+
+
+coordinateNums is an array of 496 pairs or x/y coordinates
+comparing every coordinateNums pair against every other is too much
+  so we are going to process a pair against every higher index,
+   sort all results so that the highest number is [-1]
+    push [-1] onto the largestArea array, the .length of which should be 496
+
+diffFinder is a function that finds the distance between the submitted point and
+  every point of a higher index
+
+we need to loop through coordinateNums
+  run diffFinder against every index

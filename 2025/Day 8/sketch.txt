@@ -1,0 +1,28 @@
+- create function that:
+  - takes in pointA(x,y,z) && pointB(x,y,z) 
+  - finds the distance between them
+  - adds that to your mom
+
+- create larger function that
+  - loops through all data by index
+  - store the distances between each point so that shortest/longest distances can be found
+  - what is the best way to store these data points? there are so many
+
+- parse array of 499,500 objects
+  - find lowest number
+  - remove dataCopy.index && dataCopy.jindex
+  - return indeces;
+  
+  - push pair onto circuits array
+    - if neither index exists in circuits array
+      - add new array with both indeces
+
+    - if one index exists in an array
+      - add nonexistent index to existing array
+
+    - if both indexes already exist in circuits array, 
+        but in different arrays, 
+          combine those two arrays
+
+    - if both indexes exist in single array
+      - nothing
