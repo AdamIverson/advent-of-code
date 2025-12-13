@@ -36,3 +36,16 @@ diffFinder is a function that finds the distance between the submitted point and
 
 we need to loop through coordinateNums
   run diffFinder against every index
+
+  ***********
+  parse list of boxes[999]
+  
+  for boxes[0]
+  find all distances from box[0]
+    save longest distance with index of both contributors
+  set longestDistance with distance and contributors
+  
+    find all distance from box[1] to every box of higher index
+      compare longestDistance from box 2 to box 1
+        save highest
+        recursion until boxes[998]
