@@ -19,19 +19,21 @@ var AdventOfCode = (() => {
   var require_index = __commonJS({
     "2025/Day 8/index.ts"() {
       init_input();
-      var rawData = input_default.split("\n").map((item) => item.split(",").map(Number));
-      var numberData = rawData.map((item) => item.map(Number));
-      var n = rawData.length;
+      var numberData = input_default.split("\n").map((item) => item.split(",").map(Number));
+      var n = numberData.length;
       var distanceProcessor = (pointA, pointB, indexA, indexB) => {
-        const distance = Math.sqrt(Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2) + Math.pow(pointA[2] - pointB[2], 2));
+        const distance = Math.sqrt(
+          Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2) + Math.pow(pointA[2] - pointB[2], 2)
+        );
         return { distance, indexA, indexB };
       };
       var shortestDistance = (distances) => {
-        const shortest = distances.sort((a, b) => a.distance - b.distance)[0];
-        return shortest;
+        return distances.reduce(
+          (min, current) => current.distance < min.distance ? current : min
+        );
       };
       var rowDistances = (row, index) => {
-        let distances = [];
+        const distances = [];
         for (let i = index + 1; i < n; i++) {
           const result = distanceProcessor(numberData[index], numberData[i], index, i);
           distances.push(result);
@@ -39,29 +41,27 @@ var AdventOfCode = (() => {
         if (distances.length === 0) {
           return null;
         }
-        const shortie = shortestDistance(distances);
-        return shortie;
+        return shortestDistance(distances);
       };
       var winner = null;
       var winnerFinder = (rowMin) => {
-        if (rowMin) {
+        if (rowMin !== void 0 && rowMin !== null) {
           if (winner === null || rowMin < winner) {
             console.log("rowMin less than winner", rowMin, winner);
             winner = rowMin;
-          } else if (winner !== null && rowMin > winner) {
+          } else if (rowMin > winner) {
             console.log("rowMin greater than winner", rowMin, winner);
           }
         }
       };
       var batchProcessor = (data) => {
-        let rowMin = null;
         for (let i = 0; i < data.length; i++) {
           console.log("i", i);
-          const rowMin2 = rowDistances(data[i], i);
-          winnerFinder(rowMin2?.distance);
+          const rowMin = rowDistances(data[i], i);
+          winnerFinder(rowMin?.distance);
         }
       };
-      console.log("batchProcessor", batchProcessor(numberData));
+      batchProcessor(numberData);
       console.log("winner", winner);
     }
   });
