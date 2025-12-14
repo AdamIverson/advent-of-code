@@ -21,48 +21,106 @@ var AdventOfCode = (() => {
       init_input();
       var numberData = input_default.split("\n").map((item) => item.split(",").map(Number));
       var n = numberData.length;
+      var num_iterations = 1e3;
       var distanceProcessor = (pointA, pointB, indexA, indexB) => {
         const distance = Math.sqrt(
           Math.pow(pointA[0] - pointB[0], 2) + Math.pow(pointA[1] - pointB[1], 2) + Math.pow(pointA[2] - pointB[2], 2)
         );
         return { distance, indexA, indexB };
       };
-      var shortestDistance = (distances) => {
-        return distances.reduce(
-          (min, current) => current.distance < min.distance ? current : min
-        );
-      };
-      var rowDistances = (row, index) => {
-        const distances = [];
-        for (let i = index + 1; i < n; i++) {
-          const result = distanceProcessor(numberData[index], numberData[i], index, i);
-          distances.push(result);
+      var distances = [];
+      var circuits = [];
+      var circuitMaker = (indexA, indexB) => {
+        if (indexA === void 0 || indexA === null || indexB === void 0 || indexB === null) {
+          return;
         }
-        if (distances.length === 0) {
-          return null;
-        }
-        return shortestDistance(distances);
-      };
-      var winner = null;
-      var winnerFinder = (rowMin) => {
-        if (rowMin !== void 0 && rowMin !== null) {
-          if (winner === null || rowMin < winner) {
-            console.log("rowMin less than winner", rowMin, winner);
-            winner = rowMin;
-          } else if (rowMin > winner) {
-            console.log("rowMin greater than winner", rowMin, winner);
+        let circuitA;
+        let circuitB;
+        for (let i = 0; i < circuits.length; i++) {
+          const circuit = circuits[i];
+          if (circuit.includes(indexA)) {
+            circuitA = circuit;
           }
+          if (circuit.includes(indexB)) {
+            circuitB = circuit;
+          }
+        }
+        if (circuitA && circuitB) {
+          if (circuitA !== circuitB) {
+            circuitA.push(...circuitB);
+            circuits = circuits.filter((c) => c !== circuitB);
+          }
+        } else if (circuitA) {
+          circuitA.push(indexB);
+        } else if (circuitB) {
+          circuitB.push(indexA);
+        } else {
+          circuits.push([indexA, indexB]);
         }
       };
       var batchProcessor = (data) => {
-        for (let i = 0; i < data.length; i++) {
-          console.log("i", i);
-          const rowMin = rowDistances(data[i], i);
-          winnerFinder(rowMin?.distance);
+        const populateDistances = () => {
+          const batchSize = 1e4;
+          let i = 0;
+          let j = 1;
+          const totalPairs = data.length * (data.length - 1) / 2;
+          const processChunk = () => {
+            let processed = 0;
+            while (i < data.length && processed < batchSize) {
+              if (j >= data.length) {
+                i++;
+                j = i + 1;
+                if (i >= data.length) break;
+              }
+              if (j < data.length) {
+                const result = distanceProcessor(data[i], data[j], i, j);
+                distances.push(result);
+                j++;
+                processed++;
+              }
+            }
+            const progress = (distances.length / totalPairs * 100).toFixed(1);
+            console.log(`Populating distances: ${distances.length}/${totalPairs} (${progress}%)`);
+            if (i < data.length) {
+              setTimeout(processChunk, 0);
+            } else {
+              console.log("All distances populated, sorting...");
+              distances.sort((a, b) => a.distance - b.distance);
+              console.log("Distances sorted, starting processing...");
+              processBatch();
+            }
+          };
+          processChunk();
+        };
+        let iterationCount = 0;
+        const processBatch = () => {
+          const batchSize = 1e3;
+          let processed = 0;
+          while (distances.length > 0 && processed < batchSize && iterationCount < num_iterations) {
+            const rowMin = distances[0];
+            distances.shift();
+            circuitMaker(rowMin.indexA, rowMin.indexB);
+            iterationCount++;
+            processed++;
+          }
+          const progress = (iterationCount / num_iterations * 100).toFixed(1);
+          console.log(`Processing: ${iterationCount}/${num_iterations} iterations (${progress}%), ${distances.length} distances remaining`);
+          if (iterationCount < num_iterations && distances.length > 0) {
+            setTimeout(processBatch, 0);
+          } else {
+            const sortedCircuits = circuits.sort((a, b) => b.length - a.length);
+            const answer = sortedCircuits[0].length * sortedCircuits[1].length * sortedCircuits[2].length;
+            console.log("Answer:", answer);
+            console.log("Top 3 circuits:", sortedCircuits.slice(0, 3).map((c) => c.length));
+          }
+        };
+        if (distances.length === 0) {
+          populateDistances();
+        } else {
+          processBatch();
         }
       };
       batchProcessor(numberData);
-      console.log("winner", winner);
     }
   });
   return require_index();

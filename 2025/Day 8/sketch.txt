@@ -1,3 +1,5 @@
+648 is too low
+
 - create function that:
   - takes in pointA(x,y,z) && pointB(x,y,z) 
   - finds the distance between them
@@ -26,3 +28,10 @@
 
     - if both indexes exist in single array
       - nothing
+
+  - as long as i is less than data.length, 
+      loop through data
+        find min
+          check circuits array for indexA
+          check circuits array for indexB
+          remove indexA && indexB from data array
