@@ -21,8 +21,29 @@ nummies.forEach(item => {
   let backHalf = item.slice(item.length / 2, item.length);
   if (frontHalf === backHalf) {
     invalidNummies.push(item);
+    return;
+  }
+  for (let segmentLength = 1; segmentLength < item.length / 2; segmentLength++) {
+    if (item.length % segmentLength !== 0) continue;
+    
+    const firstSegment = item.slice(0, segmentLength);
+    let allSegmentsMatch = true;
+    
+    for (let start = segmentLength; start < item.length; start += segmentLength) {
+      const segment = item.slice(start, start + segmentLength);
+      if (segment !== firstSegment) {
+        allSegmentsMatch = false;
+        break;
+      }
+    }
+    
+    if (allSegmentsMatch) {
+      invalidNummies.push(item);
+      return;
+    }
   }
 })
+console.log("invalidNummies:", invalidNummies);
 
 const finalNummies = invalidNummies.reduce((acc, item) => acc + Number(item), 0);
 console.log("finalNummies:", finalNummies);

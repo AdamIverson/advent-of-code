@@ -39,11 +39,3 @@ let total = 0;
 for (const row of rawData) {
   total += rowParse(row);
 }
-
-
-"19755 is too high"
-"17135 is incorrect"
-"17095 is someone else's answer?"
-"17090 is incorrect"
-"17130 is incorrect"
-"17085 is correct"

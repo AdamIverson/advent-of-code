@@ -1,0 +1,15 @@
+2574960534747879 is too high
+
+part 2:
+3695078402089456 is too high
+28858486244 is correct
+
+in part one, we just had to cut the string in half and check if the halves were equal
+
+in part two, equal halves are still possible (and disqualifying), 
+  but now every digit.length between 1 and id.length/2 needs to be checked for repeating
+
+  check what follows: if digit.length is 1:
+                       check index[0] against index[1],
+                      if digit.length is 2: 
+                        check digit.splice(0, digit.length) against digit.splice(0 + digit.length + 1, digit.length + digit.length)

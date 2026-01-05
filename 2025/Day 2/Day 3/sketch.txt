@@ -1,0 +1,10 @@
+volatage = loop to 12 digits instead of 2
+  if voltage[0] === 9 && volatage.length === 12
+    push to battery array
+  else if 
+
+  loop through single row (battery) from index[0] to index.length - 12(?)
+    find largest number (and index)
+      run loop for every subsequent digit following
+        only has to run from current index to (index.length - current index)
+          
